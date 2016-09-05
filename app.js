@@ -58,6 +58,7 @@ function recievedMessage(event) {
   var recipientId = event.recipient.id;
   var timeOfMessage = event.timestamp;
   var message = event.message;
+  var msg = '';
 
   if (message.text === '#quote') {
     getQuote()
