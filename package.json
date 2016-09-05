@@ -1,0 +1,30 @@
+{
+  "name": "levelzbot",
+  "version": "1.0.0",
+  "description": "A simple bot for Level Z.",
+  "main": "index.js",
+  "scripts": {
+    "test": "nothing specified"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aravindballa/levelzbot.git"
+  },
+  "keywords": [
+    "bot",
+    "messenger"
+  ],
+  "author": "Aravind Balla",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aravindballa/levelzbot/issues"
+  },
+  "homepage": "https://github.com/aravindballa/levelzbot#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "body-parser": "^1.15.0",
+    "config": "^1.20.4",
+    "ejs": "^2.4.2",
+    "request": "^2.72.0"
+  }
+}
