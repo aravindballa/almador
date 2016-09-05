@@ -73,7 +73,7 @@ function recievedMessage(event) {
         process.exit(0);
       });
 
-    consloe.log("Sending: " + msg);
+    console.log("Sending: " + msg);
     sendTextMessage(senderId, msg);
   }
 }
