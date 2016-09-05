@@ -67,12 +67,10 @@ function recievedMessage(event) {
           -- ${quote.author}
         `;
         sendTextMessage(senderId, msg);
-        process.exit(0);
       })
       .catch((err) => {
         var msg = 'Too Bad! No inspirational quote today!';
         sendTextMessage(senderId, msg);
-        process.exit(0);
       });
 
   }
