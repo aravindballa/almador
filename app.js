@@ -55,7 +55,7 @@ function recievedMessage(event) {
   var timeOfMessage = event.timestamp;
   var message = event.message;
 
-  if (message.text === "#quote") {
+  if (message.text === '#quote') {
     sendTextMessage(recipientId, 'here is your quote');
   }
 }
@@ -66,8 +66,7 @@ function sendTextMessage(recipientId, messageText) {
       id: recipientId
     },
     message: {
-      text: messageText,
-      metadata: "DEVELOPER_DEFINED_METADATA"
+      text: messageText
     }
   };
 
@@ -86,15 +85,12 @@ function callSendAPI(messageData) {
       var recipientId = body.recipient_id;
       var messageId = body.message_id;
 
-      if (messageId) {
-        console.log("Successfully sent message with id %s to recipient %s",
-          messageId, recipientId);
-      } else {
-      console.log("Successfully called Send API for recipient %s",
-        recipientId);
-      }
+      console.log("Successfully sent generic message with id %s to recipient %s",
+        messageId, recipientId);
     } else {
-      console.error(response.error);
+      console.error("Unable to send message.");
+      console.error(response);
+      console.error(error);
     }
   });
 }
