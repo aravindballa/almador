@@ -4,6 +4,7 @@
   "description": "A simple bot for Level Z.",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "nothing specified"
   },
   "repository": {
@@ -26,5 +27,8 @@
     "config": "^1.20.4",
     "ejs": "^2.4.2",
     "request": "^2.72.0"
+  },
+  "engines": {
+    "node": "~4.5.0"
   }
 }
