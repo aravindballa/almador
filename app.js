@@ -16,6 +16,17 @@ app.get('/hello', function(req, res){
   res.send('world!');
 });
 
+app.get('/webhook', function(req, res) {
+  if (req.query['hub.mode'] === 'subscribe' &&
+      req.query['hub.verify_token'] === 'building-bot') {
+    console.log("Validating webhook");
+    res.status(200).send(req.query['hub.challenge']);
+  } else {
+    console.error("Failed validation. Make sure the validation tokens match.");
+    res.sendStatus(403);
+  }
+});
+
 
 function verifyRequestSignature(req, res, buf) {
   var signature = req.headers["x-hub-signature"];
