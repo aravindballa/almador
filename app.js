@@ -5,7 +5,9 @@ const
   express = require('express'),
   https = require('https'),
   request = require('request');
-  getQuote = require('forbes-quote');
+  dns = require('dns');
+  got = require('got');
+  cheerio = require('cheerio');
 
 var app = express();
 app.listen(process.env.PORT || 5000);
@@ -60,18 +62,20 @@ function recievedMessage(event) {
   var message = event.message;
 
   if (message.text === '#quote') {
-    getQuote()
-      .then(function(quote) {
-        var msg = `
-          "${quote.quote}"
-          -- ${quote.author}
-        `;
-        sendTextMessage(senderId, msg);
-      })
-      .catch((err) => {
-        var msg = 'Too Bad! No inspirational quote today!';
-        sendTextMessage(senderId, msg);
-      });
+    dns.lookup('brainyquote.com', err => {
+  		if (err && err.code === 'ENOTFOUND') {
+  			sendTextMessage(senderId, "Sad Day! The philosophers are busy :(");
+  		}
+	  });
+  	const url = 'http://www.brainyquote.com/quotes_of_the_day.html';
+  	got(url).then(res => {
+  		const $ = cheerio.load(res.body);
+      var options = getRandomInt(0,4);
+  		const quote = $('.bqQuoteLink').eq(options).text().trim();
+  		var msg = `“${quote}”`;
+      sendTextMessage(senderId, msg);
+  	});
+
 
   }
 }
@@ -132,4 +136,8 @@ function verifyRequestSignature(req, res, buf) {
       throw new Error("Couldn't validate the request signature.");
     }
   }
+}
+
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
