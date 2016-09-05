@@ -60,19 +60,20 @@ function recievedMessage(event) {
   var message = event.message;
 
   if (message.text === '#quote') {
-    var msg = '';
     getQuote()
       .then(function(quote) {
-        msg = `
+        var msg = `
           "${quote.quote}"
           -- ${quote.author}
         `;
         process.exit(0);
       })
       .catch((err) => {
-        msg = 'Too Bad! No inspirational quote today!';
+        var msg = 'Too Bad! No inspirational quote today!';
         process.exit(0);
       });
+
+    consloe.log("Sending: " + msg);
     sendTextMessage(senderId, msg);
   }
 }
