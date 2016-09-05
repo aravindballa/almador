@@ -2,9 +2,8 @@
   "name": "levelzbot",
   "version": "1.0.0",
   "description": "A simple bot for Level Z.",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node app.js",
     "test": "nothing specified"
   },
   "repository": {
