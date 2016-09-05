@@ -22,10 +22,11 @@
   },
   "homepage": "https://github.com/aravindballa/levelzbot#readme",
   "dependencies": {
-    "express": "^4.14.0",
     "body-parser": "^1.15.0",
     "config": "^1.20.4",
     "ejs": "^2.4.2",
+    "express": "^4.14.0",
+    "forbes-quote": "^1.0.0",
     "request": "^2.72.0"
   },
   "engines": {

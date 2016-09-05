@@ -5,6 +5,7 @@ const
   express = require('express'),
   https = require('https'),
   request = require('request');
+  getQuote = require('forbes-quote');
 
 var app = express();
 app.listen(process.env.PORT || 5000);
@@ -59,7 +60,20 @@ function recievedMessage(event) {
   var message = event.message;
 
   if (message.text === '#quote') {
-    sendTextMessage(senderId, 'here is your quote');
+    var msg = '';
+    getQuote()
+      .then(function(quote) {
+        msg = `
+          "${quote.quote}"
+          -- ${quote.author}
+        `;
+        process.exit(0);
+      })
+      .catch((err) => {
+        msg = 'Too Bad! No inspirational quote today!';
+        process.exit(0);
+      });
+    sendTextMessage(senderId, msg);
   }
 }
 
