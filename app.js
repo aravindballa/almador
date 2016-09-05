@@ -1,10 +1,10 @@
-const
-  vbodyParser = require('body-parser'),
-  config = require('config'),
-  crypto = require('crypto'),
-  express = require('express'),
-  https = require('https'),
-  request = require('request');
+
+var vbodyParser = require('body-parser'),
+var config = require('config'),
+var crypto = require('crypto'),
+var express = require('express'),
+var https = require('https'),
+var request = require('request');
 
 var app = express();
 app.set('port', process.env.PORT || 5000);
