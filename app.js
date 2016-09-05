@@ -58,10 +58,8 @@ function recievedMessage(event) {
   var timeOfMessage = event.timestamp;
   var message = event.message;
 
-  console.log("You recieved: " + message.text);
-
   if (message.text === '#quote') {
-    sendTextMessage(recipientId, 'here is your quote');
+    sendTextMessage(senderId, 'here is your quote');
   }
 }
 
