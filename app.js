@@ -58,7 +58,6 @@ function recievedMessage(event) {
   var recipientId = event.recipient.id;
   var timeOfMessage = event.timestamp;
   var message = event.message;
-  var msg = '';
 
   if (message.text === '#quote') {
     getQuote()
@@ -67,15 +66,15 @@ function recievedMessage(event) {
           "${quote.quote}"
           -- ${quote.author}
         `;
+        sendTextMessage(senderId, msg);
         process.exit(0);
       })
       .catch((err) => {
         var msg = 'Too Bad! No inspirational quote today!';
+        sendTextMessage(senderId, msg);
         process.exit(0);
       });
 
-    console.log("Sending: " + msg);
-    sendTextMessage(senderId, msg);
   }
 }
 
