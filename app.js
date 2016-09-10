@@ -87,6 +87,9 @@ function recievedMessage(event) {
         sendTextMessage(senderId, msg +
           jdata.first_name + " " + jdata.last_name);
       });
+      res.on('end', () => {
+        console.log('No more data!');
+      });
     });
   }
 }
