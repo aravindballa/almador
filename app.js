@@ -84,7 +84,7 @@ function recievedMessage(event) {
         console.log(`BODY: ${chunk}`);
         var jdata = JSON.parse(`${chunk}`);
         var msg = "Oh you think I don\'t remember? You are ";
-        sendTestMessage(senderId, msg +
+        sendTextMessage(senderId, msg +
           jdata.first_name + " " + jdata.last_name);
       });
       res.on('end', () => {
