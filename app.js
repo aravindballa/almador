@@ -81,7 +81,8 @@ function recievedMessage(event) {
     var urlstr = 'https://graph.facebook.com/v2.6/'+ senderId +'?fields=first_name,last_name&access_token=EAAElWHwFC5UBAHUTz3tvUCIicreqS7KDknS5TaOKuZAZCSJwF5zhDE4FF2hFKTU8JGMopwLsWhhC0eKkiMJfeEqdAGfZAZAltSyHO9RXaToS6X5PsDgzGYEaHBln1ScGJT0opPyOKvIj9pZAb1N1cnpnYZAeKwdTAsGmjnuDzeeAZDZD'
     https.get(urlstr, (res) => {
       res.on('data', (chunk) => {
-        var jdata = JSON.parse(chunk);
+        console.log(`BODY: ${chunk}`);
+        var jdata = JSON.parse(`${chunk}`);
         var msg = "Oh you think i don\'t remember? You are ";
         sendTextMessage(senderId, msg +
           jdata.first_name + " " + jdata.last_name);
