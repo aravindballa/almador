@@ -78,8 +78,19 @@ function recievedMessage(event) {
   }
 
   if (message.text === "who am i?") {
-    var msg = getUserName(senderId);
-    sendTextMessage(senderId, msg);
+    var urlstr = 'https://graph.facebook.com/v2.6/'+ userId +'?fields=first_name,last_name&access_token=EAAElWHwFC5UBAHUTz3tvUCIicreqS7KDknS5TaOKuZAZCSJwF5zhDE4FF2hFKTU8JGMopwLsWhhC0eKkiMJfeEqdAGfZAZAltSyHO9RXaToS6X5PsDgzGYEaHBln1ScGJT0opPyOKvIj9pZAb1N1cnpnYZAeKwdTAsGmjnuDzeeAZDZD'
+    https.get(urlstr, (res) => {
+      res.on('data', (chunk) => {
+        console.log(`BODY: ${chunk}`);
+        var jdata = JSON.parse(`${chunk}`);
+        var msg = "Oh you think I don\'t remember? You are ";
+        sendTestMessage(senderId, msg +
+          jdata.first_name + " " + jdata.last_name);
+      });
+      res.on('end', () => {
+        console.log('No more data!');
+      });
+    });
   }
 }
 
@@ -143,22 +154,4 @@ function verifyRequestSignature(req, res, buf) {
 
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-function getUsername(userId) {
-  var urlstr = 'https://graph.facebook.com/v2.6/'+ userId +'?fields=first_name,last_name&access_token=EAAElWHwFC5UBAHUTz3tvUCIicreqS7KDknS5TaOKuZAZCSJwF5zhDE4FF2hFKTU8JGMopwLsWhhC0eKkiMJfeEqdAGfZAZAltSyHO9RXaToS6X5PsDgzGYEaHBln1ScGJT0opPyOKvIj9pZAb1N1cnpnYZAeKwdTAsGmjnuDzeeAZDZD';
-  https.get(urlstr, (res) => {
-    res.on('data', (chunk) => {
-      console.log(`BODY: ${chunk}`);
-      var jdata = JSON.parse(`${chunk}`);
-      var msg = "Oh you think i don\'t remember? You are ";
-      return msg +
-        jdata.first_name + " " + jdata.last_name);
-    });
-    res.on('end', () => {
-      console.log('No more data!');
-    });
-  });
-
-  return "I am too busy for these games.";
 }
