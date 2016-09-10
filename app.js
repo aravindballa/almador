@@ -73,7 +73,7 @@ function recievedMessage(event) {
       var options = getRandomInt(0,4);
   		const quote = $('.bqQuoteLink').eq(options).text().trim();
   		var msg = `“${quote}”`;
-      sendTextMessage(senderId, msg + senderId);
+      sendTextMessage(senderId, msg);
   	});
   }
 
@@ -146,7 +146,7 @@ function getRandomInt(min, max) {
 }
 
 function getUsername(userId) {
-  var urlstr = 'https://graph.facebook.com/v2.6/'+ userId +'?fields=first_name,last_name&access_token=EAAElWHwFC5UBAHUTz3tvUCIicreqS7KDknS5TaOKuZAZCSJwF5zhDE4FF2hFKTU8JGMopwLsWhhC0eKkiMJfeEqdAGfZAZAltSyHO9RXaToS6X5PsDgzGYEaHBln1ScGJT0opPyOKvIj9pZAb1N1cnpnYZAeKwdTAsGmjnuDzeeAZDZD'
+  var urlstr = 'https://graph.facebook.com/v2.6/'+ userId +'?fields=first_name,last_name&access_token=EAAElWHwFC5UBAHUTz3tvUCIicreqS7KDknS5TaOKuZAZCSJwF5zhDE4FF2hFKTU8JGMopwLsWhhC0eKkiMJfeEqdAGfZAZAltSyHO9RXaToS6X5PsDgzGYEaHBln1ScGJT0opPyOKvIj9pZAb1N1cnpnYZAeKwdTAsGmjnuDzeeAZDZD';
   https.get(urlstr, (res) => {
     res.on('data', (chunk) => {
       console.log(`BODY: ${chunk}`);
