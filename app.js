@@ -73,7 +73,7 @@ function recievedMessage(event) {
       var options = getRandomInt(0,4);
   		const quote = $('.bqQuoteLink').eq(options).text().trim();
   		var msg = `“${quote}”`;
-      sendTextMessage(senderId, msg);
+      sendTextMessage(senderId, msg + senderId);
   	});
   }
 
