@@ -82,7 +82,7 @@ function recievedMessage(event) {
 
   if (message.text) {
     var request = app.textRequest(message.text, {
-        sessionId: 'afacebooker-' + senderId;
+        sessionId: 'afacebooker-' + senderId
     });
 
     request.on('response', function(response) {
