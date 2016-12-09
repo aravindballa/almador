@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/aravindballa/levelzbot#readme",
   "dependencies": {
+    "apiai": "^3.0.3",
     "body-parser": "^1.15.0",
     "cheerio": "^0.22.0",
     "config": "^1.20.4",

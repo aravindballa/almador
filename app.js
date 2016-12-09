@@ -8,8 +8,10 @@ const
   dns = require('dns');
   got = require('got');
   cheerio = require('cheerio');
+  apiai = require('apiai');
 
 var app = express();
+var aiapp = apiai("feabbba42a94417db519221d210bc82e");
 app.listen(process.env.PORT || 5000);
 app.set('view engine', 'ejs');
 app.use(bodyParser.json({ verify: verifyRequestSignature }));
@@ -54,43 +56,50 @@ app.post('/webhook', function (req, res) {
   }
 });
 
+function getQuote() {
+  dns.lookup('brainyquote.com', err => {
+    if (err && err.code === 'ENOTFOUND') {
+      sendTextMessage(senderId, "Sad Day! The philosophers are busy :(");
+    }
+  });
+  const url = 'http://www.brainyquote.com/quotes_of_the_day.html';
+  got(url).then(res => {
+    const $ = cheerio.load(res.body);
+    var options = getRandomInt(0,4);
+    const quote = $('.bqQuoteLink').eq(options).text().trim();
+    var msg = `“${quote}”`;
+    sendTextMessage(senderId, msg);
+    //return msg;
+  });
+}
 
 function recievedMessage(event) {
   var senderId = event.sender.id;
   var recipientId = event.recipient.id;
   var timeOfMessage = event.timestamp;
   var message = event.message;
+  var msg = '';
 
-  if (message.text === '#quote') {
-    dns.lookup('brainyquote.com', err => {
-  		if (err && err.code === 'ENOTFOUND') {
-  			sendTextMessage(senderId, "Sad Day! The philosophers are busy :(");
-  		}
-	  });
-  	const url = 'http://www.brainyquote.com/quotes_of_the_day.html';
-  	got(url).then(res => {
-  		const $ = cheerio.load(res.body);
-      var options = getRandomInt(0,4);
-  		const quote = $('.bqQuoteLink').eq(options).text().trim();
-  		var msg = `“${quote}”`;
-      sendTextMessage(senderId, msg);
-  	});
-  }
-
-  if (message.text === "who am i?") {
-    var urlstr = 'https://graph.facebook.com/v2.6/'+ senderId +'?fields=first_name,last_name&access_token=EAAElWHwFC5UBAHUTz3tvUCIicreqS7KDknS5TaOKuZAZCSJwF5zhDE4FF2hFKTU8JGMopwLsWhhC0eKkiMJfeEqdAGfZAZAltSyHO9RXaToS6X5PsDgzGYEaHBln1ScGJT0opPyOKvIj9pZAb1N1cnpnYZAeKwdTAsGmjnuDzeeAZDZD'
-    https.get(urlstr, (res) => {
-      res.on('data', (chunk) => {
-        console.log(`BODY: ${chunk}`);
-        var jdata = JSON.parse(`${chunk}`);
-        var msg = "Oh you think I don\'t remember? You are ";
-        sendTextMessage(senderId, msg +
-          jdata.first_name + " " + jdata.last_name);
-      });
-      res.on('end', () => {
-        console.log('No more data!');
-      });
+  if (message.text) {
+    var request = app.textRequest(message.text, {
+        sessionId: 'afacebooker-' + senderId;
     });
+
+    request.on('response', function(response) {
+        if(response.result.fulfillment.speech)
+          sendTextMessage(senderId, response.result.fulfillment.speech);
+        else {
+          if(response.result.action == 'getQuote'){
+            getQuote();
+          }
+        }
+    });
+
+    request.on('error', function(error) {
+        console.log(error);
+    });
+
+    request.end();
   }
 }
 
