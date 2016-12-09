@@ -78,7 +78,8 @@ function recievedMessage(event) {
           sendTextMessage(senderId, response.result.fulfillment.speech);
         else {
           if(response.result.action == 'getQuote'){
-            getQuote();
+            var msg = getQuote();
+            sendTextMessage(senderId, msg);
           }
         }
     });
