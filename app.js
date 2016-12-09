@@ -81,7 +81,7 @@ function recievedMessage(event) {
   var msg = '';
 
   if (message.text) {
-    var request = app.textRequest(message.text, {
+    var request = aiapp.textRequest(message.text, {
         sessionId: 'afacebooker-' + senderId
     });
 
