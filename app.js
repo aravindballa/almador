@@ -6,6 +6,7 @@ const
   https = require('https'),
   request = require('request');
   apiai = require('apiai');
+  firebase = require('firebase');
 
 var app = express();
 var aiapp = apiai("feabbba42a94417db519221d210bc82e");
@@ -13,6 +14,16 @@ app.listen(process.env.PORT || 5000);
 app.set('view engine', 'ejs');
 app.use(bodyParser.json({ verify: verifyRequestSignature }));
 app.use(express.static('public'));
+
+var config = {
+    apiKey: "AIzaSyCUzJ7tbOhUrNhidRvn5p5LLyHPO6hvSf4",
+    authDomain: "assistant-a6320.firebaseapp.com",
+    databaseURL: "https://assistant-a6320.firebaseio.com",
+    storageBucket: "assistant-a6320.appspot.com",
+    messagingSenderId: "562103774535"
+  };
+firebase.initializeApp(config);
+var database = firebase.database();
 
 app.get('/hello', function(req, res){
   res.send('world!');
@@ -68,7 +79,13 @@ function recievedMessage(event) {
   var message = event.message;
   var msg = '';
 
-  if (message.text) {
+  if (message.text.includes("#log")) {
+    var task = message.text.replace("#log", "");
+    var msg = logWork(task);
+    sendTextMessage(senderId, msg);
+  }
+
+  else if (message.text) {
     var request = aiapp.textRequest(message.text, {
         sessionId: 'afacebooker-' + senderId
     });
@@ -254,3 +271,16 @@ var quoteSource=[
 	    }
 
 	];
+
+
+function logWork(task) {
+  var now = new Date();
+  var time = now.toLocaleTimeString('en-US', { hour12: false,
+                                             hour: "numeric",
+                                             minute: "numeric"});
+  database.ref('worklog/' + now.getFullYear() + '/' + now.getMonth()+1 + '/' + now.getDate() + '/' + time).set({
+    work: task;
+  });
+
+  return 'logged at ' + now.toLocaleString() ;
+}
