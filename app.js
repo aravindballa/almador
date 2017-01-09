@@ -8,7 +8,7 @@ const
   apiai = require('apiai');
   firebase = require('firebase');
   moment = require('moment');
-  moment-tz = require('moment-timezone');
+  moment_tz = require('moment-timezone');
 
 var app = express();
 var aiapp = apiai("feabbba42a94417db519221d210bc82e");
