@@ -7,6 +7,8 @@ const
   request = require('request');
   apiai = require('apiai');
   firebase = require('firebase');
+  moment = require('moment');
+  moment-tz = require('moment-timezone');
 
 var app = express();
 var aiapp = apiai("feabbba42a94417db519221d210bc82e");
@@ -80,7 +82,7 @@ function recievedMessage(event) {
   var msg = '';
 
   if (message.text.includes("#log")) {
-    var task = message.text.replace("#log", "");
+    var task = message.text.replace("#log", "").trim();
     var msg = logWork(task);
     sendTextMessage(senderId, msg);
   }
@@ -274,13 +276,12 @@ var quoteSource=[
 
 
 function logWork(task) {
-  var now = new Date();
-  var time = now.toLocaleTimeString('en-US', { hour12: false,
-                                             hour: "numeric",
-                                             minute: "numeric"});
-  database.ref('worklog/' + now.getFullYear() + '/' + now.getMonth()+1 + '/' + now.getDate() + '/' + time).set({
+    var nows = new Date();
+    var now = moment_tz.tz(moment(nows), "Asia/Kolkata");
+    var time = now.format('h:mm:ss');
+    database.ref('worklog/' + now.year() + '/' + now.format('MMMM') + '/' + now.date() + '/' + time).set({
     work: task
-  });
+    });
 
-  return ('logged at ' + now.toLocaleString());
+    return ('logged at ' + now.format('MMMM Do YYYY, h:mm:ss a'));
 }
