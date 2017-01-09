@@ -283,7 +283,7 @@ function logWork(task) {
     work: task
     });
 
-    var r = getRandomInt(0, 23);
+    var r = getRandomInt(0, 3);
     var msg = logResponses[r];
     return msg;
 }
