@@ -283,5 +283,14 @@ function logWork(task) {
     work: task
     });
 
-    return ('logged at ' + now.format('MMMM Do YYYY, h:mm:ss a'));
+    var r = getRandomInt(0, 23);
+    var msg = logResponses[r];
+    return msg;
 }
+
+var logResponses = [
+  "Roger that!",
+  "Copied",
+  "Noted. Go on :)",
+  "All the best"
+];
