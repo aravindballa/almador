@@ -15,14 +15,14 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.json({ verify: verifyRequestSignature }));
 app.use(express.static('public'));
 
-var config = {
+var fireconfig = {
     apiKey: "AIzaSyCUzJ7tbOhUrNhidRvn5p5LLyHPO6hvSf4",
     authDomain: "assistant-a6320.firebaseapp.com",
     databaseURL: "https://assistant-a6320.firebaseio.com",
     storageBucket: "assistant-a6320.appspot.com",
     messagingSenderId: "562103774535"
   };
-firebase.initializeApp(config);
+firebase.initializeApp(fireconfig);
 var database = firebase.database();
 
 app.get('/hello', function(req, res){
