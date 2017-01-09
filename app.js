@@ -279,7 +279,7 @@ function logWork(task) {
                                              hour: "numeric",
                                              minute: "numeric"});
   database.ref('worklog/' + now.getFullYear() + '/' + now.getMonth()+1 + '/' + now.getDate() + '/' + time).set({
-    work: task;
+    work: task
   });
 
   return 'logged at ' + now.toLocaleString() ;
