@@ -282,5 +282,5 @@ function logWork(task) {
     work: task
   });
 
-  return 'logged at ' + now.toLocaleString() ;
+  return ('logged at ' + now.toLocaleString());
 }
