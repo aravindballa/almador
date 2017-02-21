@@ -33,7 +33,7 @@ app.get('/hello', function(req, res){
 
 app.get('/webhook', function(req, res) {
   if (req.query['hub.mode'] === 'subscribe' &&
-      req.query['hub.verify_token'] === 'building-bot') {
+      req.query['hub.verify_token'] === 'ab-almador') {
     console.log("Validating webhook");
     res.status(200).send(req.query['hub.challenge']);
   } else {
@@ -127,7 +127,7 @@ function sendTextMessage(recipientId, messageText) {
 function callSendAPI(messageData) {
   request({
     uri: 'https://graph.facebook.com/v2.6/me/messages',
-    qs: { access_token: 'EAAElWHwFC5UBAIMFZAHw8cQIBYedqK9vcbo6Ta6LBBFZCR0kZBulCI53Wcw6q5HYuC7ueNQmuWtMbMGRYio0ZCbCaeqT2LvTtPl6IGqxmVybcKJPdmzNjDIZB5lnDdSEVOerEKRJ9DEFTYNrNM5E1gXSRqcBkwNpfhwyjeH1FqAZDZD' },
+    qs: { access_token: 'EAADtsK3nBVcBANDNtPtTg9dHKZAnYpIY0jzNnUVdUPPjYbzh8tmEA0ZAC0wSZCBagEcFLrZBtEnR0iQVpK8Wy8ZARQjIhZA0ZCEXVsFeNY8oHhhvcO56VvxWjbwlaCeYkMIw7PaCE0tHjZBnBI3j7sHmcZB3y5rz4kPclAr35YEeSuAZDZD' },
     method: 'POST',
     json: messageData
 

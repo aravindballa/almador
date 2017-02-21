@@ -1,7 +1,7 @@
 {
-  "name": "levelzbot",
+  "name": "Almador",
   "version": "1.0.0",
-  "description": "A simple bot for Level Z.",
+  "description": "A simple bot for Aravind Balla.",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
