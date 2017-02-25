@@ -21,7 +21,7 @@ const
   firebase = require('firebase'),
   moment = require('moment'),
   moment_tz = require('moment-timezone'),
-  quote = require('quote');
+  quote = require('./quote');
 
 var app = express();
 var aiapp = apiai("feabbba42a94417db519221d210bc82e");
@@ -298,7 +298,7 @@ function receivedMessage(event) {
     request.end();
     
     }
-  } else if (messageAttachments) {
+   else if (messageAttachments) {
     sendTextMessage(senderID, "Message with attachment received");
   }
 }
