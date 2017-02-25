@@ -863,7 +863,8 @@ function getLoggedWork(date, senderID) {
         //console.log(msg);
         sendTextMessage(senderID, msg);
       }
-      sendTextMessage(senderID, "No logs found.");
+      else
+        sendTextMessage(senderID, "No logs found.");
 
   });
 }
