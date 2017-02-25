@@ -842,9 +842,10 @@ function logWork(task) {
 }
 
 function getLoggedWork(date, senderID) {
-  var year = date.getFullYear();
-  var month = date.getMonth();
-  var day = date. getDate();
+  var d = new Date(date);
+  var year = d.getFullYear();
+  var month = d.getMonth();
+  var day = d. getDate();
   var monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
     ];
