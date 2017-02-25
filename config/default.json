@@ -1,6 +1,6 @@
 {
-    "appSecret": "",
-    "pageAccessToken": "",
-    "validationToken": "",
-    "serverURL": ""
+    "appSecret": "e08f6cc0e8143fcd12df16084c7ceddb",
+    "pageAccessToken": "EAADtsK3nBVcBAHhlvweMMQZA343jeDlSfNVgD3ravBE9rqQBVOBTAsWuzV7UZCsGEBCMf4z2Bsa1VOb6wthPyWJwAwkErXPtXDR59J09hThDkgo2MJGZCVf8ZB3HVwXEjnxUGBxog80WZC76o61LZA40UyZCWPrCQfczJVyxoXfFwZDZD",
+    "validationToken": "ab-almador",
+    "serverURL": "https://almador.herokuapp.com/"
 }
