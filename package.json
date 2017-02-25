@@ -22,7 +22,8 @@
     "firebase": "^3.6.4",
     "moment": "^2.17.1",
     "moment-timezone": "^0.5.11",
-    "request": "^2.72.0"
+    "request": "^2.72.0",
+    "twilio": "^2.11.1"
   },
   "engines": {
     "node": "~4.5.0"

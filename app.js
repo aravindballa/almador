@@ -21,7 +21,8 @@ const
   firebase = require('firebase'),
   moment = require('moment'),
   moment_tz = require('moment-timezone'),
-  quote = require('./quote');
+  quote = require('./quote'),
+  twilio_sms = require('./twilio_sms');
 
 var app = express();
 var aiapp = apiai("feabbba42a94417db519221d210bc82e");
@@ -273,6 +274,12 @@ function receivedMessage(event) {
     var task = message.text.replace("#log", "").trim();
     var msg = logWork(task);
     sendTextMessage(senderID, msg);
+  }
+
+  else if (message.text.includes("#sms")) {
+    var msg = message.text.replace("#sms", "").trim();
+    twilio_sms('+917793964251', msg);
+    sendTextMessage(senderID, "Sent!");
   }
 
   else if (messageText) {
