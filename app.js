@@ -276,15 +276,15 @@ function receivedMessage(event) {
     sendTextMessage(senderID, msg);
   }
 
-  else if (message.text.includes("#sms")) {
-    var msg = message.text.replace("#sms", "").trim();
-    twilio_sms('+917793964251', msg);
-    sendTextMessage(senderID, "Sent!");
-  }
-
   else if (message.text.includes("#smsme")) {
     var msg = message.text.replace("#smsme", "").trim();
     twilio_sms('+918332832730', msg);
+    sendTextMessage(senderID, "Sent!");
+  }
+
+  else if (message.text.includes("#sms")) {
+    var msg = message.text.replace("#sms", "").trim();
+    twilio_sms('+917793964251', msg);
     sendTextMessage(senderID, "Sent!");
   }
 
