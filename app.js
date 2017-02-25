@@ -288,6 +288,9 @@ function receivedMessage(event) {
             var msg = quote();
             sendTextMessage(senderID, msg);
           }
+          else if(response.result.action == 'getLoggedWork'){
+            getLoggedWork(response.result.parameters.date, senderID);
+          }
         }
     });
 
@@ -836,6 +839,33 @@ function logWork(task) {
     var r = getRandomInt(0, 3);
     var msg = logResponses[r];
     return msg;
+}
+
+function getLoggedWork(date, senderID) {
+  var year = date.getFullYear();
+  var month = date.getMonth();
+  var day = date. getDate();
+  var monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+    ];
+
+  var work = database.ref('/worklog/' + year + '/' + monthNames[month] + '/' + day)
+            .once('value').then(function(snapshot) {
+                return snapshot.val();
+            });
+
+  work.then(function(data){
+      if(data) {
+        var msg = '';
+        for(var key in data) {
+            msg += key + ': ' + data[key].work + '\n';
+        }
+        //console.log(msg);
+        sendTextMessage(senderID, msg);
+      }
+      sendTextMessage(senderID, "No logs found.");
+
+  });
 }
 
 function getRandomInt(min, max) {
