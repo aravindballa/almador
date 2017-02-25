@@ -282,6 +282,12 @@ function receivedMessage(event) {
     sendTextMessage(senderID, "Sent!");
   }
 
+  else if (message.text.includes("#smsme")) {
+    var msg = message.text.replace("#smsme", "").trim();
+    twilio_sms('+918332832730', msg);
+    sendTextMessage(senderID, "Sent!");
+  }
+
   else if (messageText) {
     var request = aiapp.textRequest(message.text, {
         sessionId: 'afacebooker-' + senderID
