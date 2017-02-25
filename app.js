@@ -272,21 +272,21 @@ function receivedMessage(event) {
   if (message.text.includes("#log")) {
     var task = message.text.replace("#log", "").trim();
     var msg = logWork(task);
-    sendTextMessage(senderId, msg);
+    sendTextMessage(senderID, msg);
   }
 
   else if (messageText) {
     var request = aiapp.textRequest(message.text, {
-        sessionId: 'afacebooker-' + senderId
+        sessionId: 'afacebooker-' + senderID
     });
 
     request.on('response', function(response) {
         if(response.result.fulfillment.speech)
-          sendTextMessage(senderId, response.result.fulfillment.speech);
+          sendTextMessage(senderID, response.result.fulfillment.speech);
         else {
           if(response.result.action == 'getQuote'){
             var msg = quote();
-            sendTextMessage(senderId, msg);
+            sendTextMessage(senderID, msg);
           }
         }
     });
